@@ -8,8 +8,8 @@ export const cesar = (text: string, k: number, type: string): string => {
   let cript: string = text
   const textFormated: string = removeAccents(text)
 
-  if (type === 'd') cript = decode(textFormated, k)
-  if (type !== 'd') cript = encode(textFormated, k)
+  if (type === '-d') cript = decode(textFormated, k)
+  if (type !== '-d') cript = encode(textFormated, k)
 
   return cript
 }

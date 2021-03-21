@@ -2,22 +2,29 @@ import fs from 'fs'
 import path from 'path'
 import { cesar } from './caesar'
 
-console.log(process.argv)
-
 const type = process.argv[2]
-const k = process.argv[3]
-const fileText = process.argv[4]
+const k = process.argv[4]
+const fileText = process.argv[5]
+const fileWrite = process.argv[6]
 
-const filePath = path.isAbsolute(fileText) ? fileText : path.join(__dirname, fileText)
+const pathRoot = process.cwd() + '/src/cesar/tmp/'
+const pathFrequency = process.cwd() + '/src/decifra/tmp/'
+
+const filePath = path.isAbsolute(fileText) ? fileText : path.join(pathRoot, fileText)
 const file = fs.readFileSync(filePath, { encoding: 'utf-8' })
 
 const key = Number.parseInt(k)
-let filename = 'texto-cifrado'
-if (type === 'd') filename = 'texto-aberto'
 
 const encript = cesar(file, key, type)
 
-fs.writeFile(`tmp/${filename}.txt`, encript, (err) => {
+fs.writeFile(`${pathRoot}${fileWrite}`, encript, (err) => {
+  console.log(`Type: ${type === '-d' ? 'DECRYPT' : 'ENCRYPT'} | Key: ${key}`)
+  console.log('--------------------------------')
   if (err) return console.log(err)
-  console.log(`The file was saved in tmp/${filename}.txt`)
+  console.log(`The file was saved in src/cesar/tmp/${fileWrite}`)
+})
+
+fs.writeFile(`${pathFrequency}${fileWrite}`, encript, (err) => {
+  if (err) return console.log(err)
+  console.log(`The file was saved in src/decifra/tmp/${fileWrite}`)
 })

@@ -1,17 +1,39 @@
-import { generateKey } from './utils/generateKey'
-import { codeToAscii } from './utils/code-to-ascii'
-import { asciiToCode } from './utils/ascii-to-code'
+import fs from 'fs'
+import path from 'path'
+import { vernamCipher } from './vernam-cipher'
+import { vernamDecrypt } from './vernam-decrypt'
 
-const text = 'Olá você, FUJA para as colinas!'
-console.log(`text: ${text} | length: ${text.length}`)
+const type = process.argv[2]
+const fileDat = process.argv[3]
+const fileText = process.argv[4]
+const fileWrite = process.argv[5]
 
-const key = generateKey(text.length)
-console.log(`key: ${key} | length: ${key.length}`)
+const pathRoot = process.cwd() + '/src/vernam/tmp/'
 
-const arr = asciiToCode(text, key)
-const cipher = codeToAscii(arr, key)
-console.log(`crypt: ${cipher} | length: ${cipher.length}`)
+const filePath = path.isAbsolute(fileText) ? fileText : path.join(pathRoot, fileText)
+const file = fs.readFileSync(filePath, { encoding: 'utf-8' })
 
-const arrDecrypt = asciiToCode(cipher, key)
-const decrypt = codeToAscii(arrDecrypt, key)
-console.log(`decrypt: ${decrypt} | length: ${decrypt.length}`)
+if (type === '-d') {
+  const fileKeyPath = path.isAbsolute(fileDat) ? fileDat : path.join(pathRoot, fileDat)
+  const fileKey = fs.readFileSync(fileKeyPath, { encoding: 'utf-8' })
+
+  vernamDecrypt({
+    type: type,
+    path: pathRoot,
+    text: file,
+    key: fileKey,
+    fileWrite: fileWrite
+  })
+}
+
+if (type !== '-d') {
+  vernamCipher({
+    type: type,
+    path: pathRoot,
+    text: file,
+    files: {
+      fileDat: fileDat,
+      fileWrite: fileWrite
+    }
+  })
+}

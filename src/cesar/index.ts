@@ -2,6 +2,8 @@ import fs from 'fs'
 import path from 'path'
 import { cesar } from './caesar'
 
+console.log(process.argv)
+
 const type = process.argv[2]
 const k = process.argv[3]
 const fileText = process.argv[4]

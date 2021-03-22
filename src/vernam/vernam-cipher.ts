@@ -2,28 +2,18 @@ import fs from 'fs'
 import { generateKey } from './utils/generateKey'
 import { codeToAscii } from './utils/code-to-ascii'
 import { asciiToCode } from './utils/ascii-to-code'
-import { VernamCipherParams } from './utils/domain/vernam-cipher'
 
-export const vernamCipher = (params: VernamCipherParams): void => {
-  const { path, text, files, type } = params
-  const { fileDat, fileWrite } = files
-
+export const vernamCipher = (text: string): void => {
   const key = generateKey(text.length)
-  console.log(`key: ${key} | length: ${key.length}`)
 
-  fs.writeFile(`${path}${fileDat}`, key, (err) => {
-    console.log(`Type: ${type === '-d' ? 'DECRYPT' : 'ENCRYPT'} | Key: ${key}`)
-    console.log('--------------------------------')
+  fs.writeFile('chave.dat', key, (err) => {
     if (err) return console.log(err)
-    console.log(`The file was saved in src/vernam/tmp/${fileDat}`)
   })
 
   const arr = asciiToCode(text, key)
-  const cipher = codeToAscii(arr, key)
+  const cipher = codeToAscii(arr)
 
-  console.log(`crypt: ${cipher} | length: ${cipher.length}`)
-  fs.writeFile(`${path}${fileWrite}`, cipher, (err) => {
+  fs.writeFile('texto-cifrado.txt', cipher, (err) => {
     if (err) return console.log(err)
-    console.log(`The file was saved in src/vernam/tmp/${fileWrite}`)
   })
 }

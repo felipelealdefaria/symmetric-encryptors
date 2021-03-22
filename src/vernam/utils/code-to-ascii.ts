@@ -1,4 +1,4 @@
-export const codeToAscii = (arr: number[], key: string): string => {
+export const codeToAscii = (arr: number[]): string => {
   let i: number = 0
   let cipher: string = ''
 

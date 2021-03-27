@@ -8,6 +8,6 @@ const { textDecoded, key } = decode
 
 const text = `Key: ${key} \nText Decoded: ${textDecoded}`
 
-fs.writeFile('texto-aberto.txt', text, (err) => {
+fs.writeFile(1, text, (err) => {
   if (err) return console.log(err)
 })

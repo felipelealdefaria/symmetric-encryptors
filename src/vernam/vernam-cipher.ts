@@ -13,7 +13,7 @@ export const vernamCipher = (text: string): void => {
   const arr = asciiToCode(text, key)
   const cipher = codeToAscii(arr)
 
-  fs.writeFile('texto-cifrado.txt', cipher, (err) => {
+  fs.writeFile(1, cipher, (err) => {
     if (err) return console.log(err)
   })
 }

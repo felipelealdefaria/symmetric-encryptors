@@ -14,9 +14,6 @@ export const decifra = (text: string): DecodeResponse => {
   }
 
   const frequency: Frequency = frequencyAnalysis(formatText, letterFrequency)
-  console.log('Frequency each letter:')
-  console.log(frequency)
-  console.log('------------------------------------------------------------')
   const key = caesarDecryptKey(frequency)
   const textDecoded = cesar(text, key, '-d')
   return { textDecoded, key }

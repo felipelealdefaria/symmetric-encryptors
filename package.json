@@ -19,7 +19,7 @@
   "bin": {
     "cesar": "./bin/cesar",
     "decifra": "./bin/decifra",
-    "Vernam": "./bin/vernam"
+    "vernam": "./bin/vernam"
   },
   "preferGlobal": true,
   "scripts": {},

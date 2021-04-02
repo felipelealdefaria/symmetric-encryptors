@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('../dist/cesar')
+require('../dist/cesar/index')
